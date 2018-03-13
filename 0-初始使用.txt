@@ -1,0 +1,41 @@
+初始：
+npm init
+
+自动锁定依赖的版本号
+npm config set save-exact true
+
+安装express
+npm i express@4.14.0 --save
+
+在开发过程中，每次修改代码保存后，我们都需要手动重启程序，才能查看改动的效果。使用 supervisor 可以解决这个繁琐的问题，全局安装 supervisor：
+npm i -g supervisor (运行 supervisor index 启动程序)
+
+路由：
+https://github.com/nswbmw/N-blog/blob/master/book/3.2%20%E8%B7%AF%E7%94%B1.md
+不难看出：req 包含了请求来的相关信息，res 则用来返回该请求的响应，更多请查阅 express 官方文档。下面介绍几个常用的 req 的属性：
+req.query: 解析后的 url 中的 querystring，如 ?name=haha，req.query 的值为 {name: 'haha'}
+req.params: 解析 url 中的占位符，如 /:name，访问 /haha，req.params 的值为 {name: 'haha'}
+req.body: 解析后请求体，需使用相关的模块，如 body-parser，请求体为 {"name": "haha"}，则 req.body 为 {name: 'haha'}
+
+模板引擎：
+模板引擎（Template Engine）是一个将页面模板和数据结合起来生成 html 的工具。上例中，我们只是返回纯文本给浏览器，现在我们修改代码返回一个 html 页面给浏览器。
+模板引擎有很多，ejs 是其中一种，因为它使用起来十分简单，而且与 express 集成良好，所以我们使用 ejs。安装 ejs：
+npm i ejs --save
+	需要设置：
+	const path = require('path')
+	app.set('views', path.join(__dirname, 'views))// 设置放模板文件的目录
+	app.set('view engine','ejs') // 设置模板引擎为ejs
+
+res.render：
+	这个函数渲染ejs模板arguments('模板名(views下)',{}(传递的参数))
+
+ejs模板
+	<% code %>：运行 JavaScript 代码，不输出
+	<%= code %>：显示转义后的 HTML内容
+	<%- code %>：显示原始 HTML 内容
+
+错误返回:
+	throw New Error('错误返回信息')
+
+
+	
